@@ -10,6 +10,7 @@ import Factory
 
 final class ChatsViewModel: ObservableObject {
     @Injected(\.chatsStorage) var chatsStorage
+    @Injected(\.coordinator) var coordinator
 
     init() {
 
@@ -17,5 +18,9 @@ final class ChatsViewModel: ObservableObject {
 
     func createNewChat(name: String) {
         chatsStorage.addNewChat(name: name)
+    }
+
+    func open(chat: ChatModel) {
+        coordinator.push(.chat(chatId: chat.id))
     }
 }

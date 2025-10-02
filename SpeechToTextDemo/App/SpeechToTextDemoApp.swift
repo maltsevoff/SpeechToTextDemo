@@ -6,12 +6,31 @@
 //
 
 import SwiftUI
+import Factory
 
 @main
 struct SpeechToTextDemoApp: App {
+    @InjectedObject(\.coordinator) var coordinator
+
     var body: some Scene {
         WindowGroup {
-            ChatsView(viewModel: .init())
+            NavigationStack(path: $coordinator.path) {
+                rootView
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .chats:
+                            ChatsView(viewModel: .init())
+                        case .chat(let chatId):
+                            VStack {
+                                Text("Chat \(chatId)")
+                            }
+                        }
+                    }
+            }
         }
+    }
+
+    private var rootView: some View {
+        coordinator.start()
     }
 }

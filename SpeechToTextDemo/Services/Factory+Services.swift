@@ -12,4 +12,8 @@ extension Container {
     var chatsStorage: Factory<ChatsStorage> {
         Factory(self) { ChatsStorageImpl() }
     }
+
+    var coordinator: Factory<Coordinator> {
+        Factory(self) { Coordinator() }.shared
+    }
 }
