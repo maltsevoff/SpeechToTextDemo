@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A77D63352E8E7A12005A45D9 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = A77D63342E8E7A12005A45D9 /* Factory */; };
-		A77D63372E8E7A12005A45D9 /* FactoryKit in Frameworks */ = {isa = PBXBuildFile; productRef = A77D63362E8E7A12005A45D9 /* FactoryKit */; };
-		A77D63392E8E7A12005A45D9 /* FactoryTesting in Frameworks */ = {isa = PBXBuildFile; productRef = A77D63382E8E7A12005A45D9 /* FactoryTesting */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,8 +27,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A77D63372E8E7A12005A45D9 /* FactoryKit in Frameworks */,
-				A77D63392E8E7A12005A45D9 /* FactoryTesting in Frameworks */,
 				A77D63352E8E7A12005A45D9 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -75,8 +71,6 @@
 			name = SpeechToTextDemo;
 			packageProductDependencies = (
 				A77D63342E8E7A12005A45D9 /* Factory */,
-				A77D63362E8E7A12005A45D9 /* FactoryKit */,
-				A77D63382E8E7A12005A45D9 /* FactoryTesting */,
 			);
 			productName = SpeechToTextDemo;
 			productReference = A77D631F2E8E63F0005A45D9 /* SpeechToTextDemo.app */;
@@ -356,16 +350,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A77D63332E8E7A12005A45D9 /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
-		};
-		A77D63362E8E7A12005A45D9 /* FactoryKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A77D63332E8E7A12005A45D9 /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = FactoryKit;
-		};
-		A77D63382E8E7A12005A45D9 /* FactoryTesting */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A77D63332E8E7A12005A45D9 /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = FactoryTesting;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

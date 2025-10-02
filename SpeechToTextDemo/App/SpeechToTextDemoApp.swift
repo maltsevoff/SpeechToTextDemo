@@ -11,7 +11,7 @@ import SwiftUI
 struct SpeechToTextDemoApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ChatsView(viewModel: .init())
         }
     }
 }
