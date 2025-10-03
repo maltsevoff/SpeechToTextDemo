@@ -39,7 +39,7 @@ struct ChatView: View {
 
         }, label: {
             Circle()
-                .fill(Color.blue)
+                .fill(viewModel.recordState == .normal ? Color.blue : Color.red)
                 .frame(width: 80, height: 80)
                 .overlay {
                     Image(systemName: "microphone")
