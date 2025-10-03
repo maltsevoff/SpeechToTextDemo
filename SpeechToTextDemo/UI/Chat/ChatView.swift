@@ -42,6 +42,7 @@ struct ChatView: View {
             }
         }
         .defaultScrollAnchor(.bottom)
+        .scrollIndicators(.hidden)
     }
 
     private var recordButton: some View {

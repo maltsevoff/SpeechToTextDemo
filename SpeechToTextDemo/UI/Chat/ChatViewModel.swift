@@ -19,9 +19,11 @@ final class ChatViewModel: ObservableObject {
     var chat: ChatModel?
     var messagaes: [Message] = []
 
+    private let chatId: String
     private var transcriptionTask: Task<Void, Never>?
 
     init(chatId: String) {
+        self.chatId = chatId
         chat = chatsStorage.getChat(by: chatId)
         messagaes = chatsStorage.getMessages(by: chatId)
     }
@@ -62,8 +64,17 @@ final class ChatViewModel: ObservableObject {
         recordState = .normal
         transcriptionTask?.cancel()
         transcriptionTask = nil
-        transcript = ""
         speechService.stopTranscribing()
+
+        addNewMessage(text: transcript)
+        transcript = ""
+    }
+
+    private func addNewMessage(text: String) {
+        guard !text.isEmpty else { return }
+        
+        let newMessages = chatsStorage.addNewMessage(text: text, to: chatId)
+        messagaes = newMessages
     }
 }
 

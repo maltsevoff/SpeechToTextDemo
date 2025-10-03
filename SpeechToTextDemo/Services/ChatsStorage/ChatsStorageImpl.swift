@@ -8,7 +8,9 @@
 import Foundation
 
 class ChatsStorageImpl: ChatsStorage {
-    var chats: [ChatModel] = []
+    var chats: [ChatModel] = [
+        .init(id: "1", name: "chat 1"),
+    ]
     var messagesDict: [String : [Message]] = [:]
 
     func addNewChat(name: String) {
