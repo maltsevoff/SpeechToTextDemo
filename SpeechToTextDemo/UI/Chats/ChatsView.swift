@@ -17,11 +17,19 @@ struct ChatsView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button(action: {
-                    
+                    viewModel.showChatCreation()
                 }, label: {
                     Image(systemName: "plus")
                         .foregroundStyle(.foreground)
                 })
+            }
+            .alert("Enter chat name", isPresented: $viewModel.showingNewChatAlert) {
+                TextField("Chat name", text: $viewModel.newChatName)
+                Button("Cancel", role: .cancel) { }
+                Button("Submit") {
+                    viewModel.createNewChat(name: viewModel.newChatName)
+                }
+                .disabled(viewModel.newChatName == "")
             }
     }
 

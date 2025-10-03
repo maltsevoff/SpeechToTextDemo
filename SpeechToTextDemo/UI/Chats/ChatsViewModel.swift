@@ -12,8 +12,16 @@ final class ChatsViewModel: ObservableObject {
     @Injected(\.chatsStorage) var chatsStorage
     @Injected(\.coordinator) var coordinator
 
+    @Published var showingNewChatAlert = false
+    @Published var newChatName = ""
+
     init() {
 
+    }
+
+    func showChatCreation() {
+        newChatName = ""
+        showingNewChatAlert = true
     }
 
     func createNewChat(name: String) {

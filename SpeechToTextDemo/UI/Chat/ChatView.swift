@@ -13,6 +13,7 @@ struct ChatView: View {
 
     var body: some View {
         rootView
+            .navigationTitle(viewModel.chatName)
     }
 
     private var rootView: some View {

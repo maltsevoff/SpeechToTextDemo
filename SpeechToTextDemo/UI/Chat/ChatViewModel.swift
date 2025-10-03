@@ -16,6 +16,7 @@ final class ChatViewModel: ObservableObject {
     @Published var recordState: RecordState = .normal
     @Published var transcript = ""
     @Published var errorMessage: String?
+    @Published var chatName = ""
     var chat: ChatModel?
     var messagaes: [Message] = []
 
@@ -26,6 +27,7 @@ final class ChatViewModel: ObservableObject {
         self.chatId = chatId
         chat = chatsStorage.getChat(by: chatId)
         messagaes = chatsStorage.getMessages(by: chatId)
+        chatName = chat?.name ?? ""
     }
 
     func toggleRecord() {

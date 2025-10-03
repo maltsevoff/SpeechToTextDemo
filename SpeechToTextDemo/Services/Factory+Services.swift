@@ -10,7 +10,7 @@ import Factory
 
 extension Container {
     var chatsStorage: Factory<ChatsStorage> {
-        Factory(self) { ChatsStorageImpl() }
+        Factory(self) { ChatsStorageImpl() }.shared
     }
 
     var coordinator: Factory<Coordinator> {
