@@ -16,4 +16,8 @@ extension Container {
     var coordinator: Factory<Coordinator> {
         Factory(self) { Coordinator() }.shared
     }
+
+    var speechService: Factory<SpeechService> {
+        Factory(self) { SpeechServiceImpl() }
+    }
 }

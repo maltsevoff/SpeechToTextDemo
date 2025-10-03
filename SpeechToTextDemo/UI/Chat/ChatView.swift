@@ -21,6 +21,16 @@ struct ChatView: View {
                 .padding(.horizontal, 16)
             recordButton
         }
+        .overlay {
+            if viewModel.recordState == .recording {
+                Text(viewModel.transcript)
+                    .frame(width: 180)
+                    .padding(.horizontal, 24)
+                    .padding(.vertical, 16)
+                    .background(Color.gray)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
+        }
     }
 
     private var messagesList: some View {
@@ -36,7 +46,7 @@ struct ChatView: View {
 
     private var recordButton: some View {
         Button(action: {
-
+            viewModel.toggleRecord()
         }, label: {
             Circle()
                 .fill(viewModel.recordState == .normal ? Color.blue : Color.red)

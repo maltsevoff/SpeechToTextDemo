@@ -21,9 +21,7 @@ struct SpeechToTextDemoApp: App {
                         case .chats:
                             ChatsView(viewModel: .init())
                         case .chat(let chatId):
-                            VStack {
-                                Text("Chat \(chatId)")
-                            }
+                            ChatView(viewModel: .init(chatId: chatId))
                         }
                     }
             }

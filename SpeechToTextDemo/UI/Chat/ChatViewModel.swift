@@ -8,24 +8,62 @@
 import SwiftUI
 import Factory
 
+@MainActor
 final class ChatViewModel: ObservableObject {
     @Injected(\.chatsStorage) var chatsStorage
+    @Injected(\.speechService) var speechService
 
     @Published var recordState: RecordState = .normal
+    @Published var transcript = ""
+    @Published var errorMessage: String?
     var chat: ChatModel?
     var messagaes: [Message] = []
+
+    private var transcriptionTask: Task<Void, Never>?
 
     init(chatId: String) {
         chat = chatsStorage.getChat(by: chatId)
         messagaes = chatsStorage.getMessages(by: chatId)
     }
 
-    func startRecord() {
+    func toggleRecord() {
+        switch recordState {
+        case .normal:
+            startRecord()
+        case .recording:
+            stopRecord()
+        }
+    }
 
+    func startRecord() {
+        guard recordState != .recording else { return }
+
+        recordState = .recording
+
+        transcriptionTask?.cancel()
+        transcriptionTask = Task { @MainActor in
+            do {
+                try await speechService.authorize()
+
+                let stream = speechService.transcribe()
+                for try await partialResult in stream {
+                    self.transcript = partialResult
+                }
+            } catch {
+                self.errorMessage = error.localizedDescription
+                self.recordState = .normal
+            }
+        }
     }
 
     func stopRecord() {
+        guard recordState == .recording else { return }
 
+        recordState = .normal
+        transcriptionTask?.cancel()
+        transcriptionTask = nil
+        transcript = ""
+        speechService.stopTranscribing()
     }
 }
 
