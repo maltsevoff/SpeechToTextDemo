@@ -8,9 +8,8 @@
 import Foundation
 
 class ChatsStorageImpl: ChatsStorage {
-    var chats: [ChatModel] = [
-        .init(id: "1", name: "chat 1")
-    ]
+    var chats: [ChatModel] = []
+    var messagesDict: [String : [Message]] = [:]
 
     func addNewChat(name: String) {
         chats.append(ChatModel(id: UUID().uuidString, name: name))
@@ -27,6 +26,14 @@ class ChatsStorageMock: ChatsStorage {
         .init(id: "6", name: "chat 6"),
         .init(id: "7", name: "chat 7"),
         .init(id: "8", name: "chat 8"),
+    ]
+    var messagesDict: [String : [Message]] = [
+        "1": [
+            .init(id: "mes1", text: "hello"),
+            .init(id: "mes2", text: "my new messegae"),
+            .init(id: "mes3", text: "everything going fine"),
+            .init(id: "mes4", text: "mo problems are discovered")
+        ]
     ]
 
     func addNewChat(name: String) {
