@@ -34,7 +34,7 @@ class ChatsStorageMock: ChatsStorage {
             .init(id: "mes1", text: "hello"),
             .init(id: "mes2", text: "my new messegae"),
             .init(id: "mes3", text: "everything going fine"),
-            .init(id: "mes4", text: "mo problems are discovered")
+            .init(id: "mes4", text: "mo problems are discovered more text more more more")
         ]
     ]
 

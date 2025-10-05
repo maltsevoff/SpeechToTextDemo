@@ -15,13 +15,12 @@ struct MessageCell: View {
             HStack {
                 Spacer()
 
-                Text("id: \(message.id)")
-
                 Text(message.text)
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
+                    .frame(minHeight: 40)
                     .background(Color.blue)
-                    .clipShape(Capsule())
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
             }
         }
         .frame(maxWidth: .infinity)
