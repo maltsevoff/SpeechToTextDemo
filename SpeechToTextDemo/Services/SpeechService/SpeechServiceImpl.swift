@@ -31,7 +31,7 @@ final class SpeechServiceImpl: @preconcurrency SpeechService, @unchecked Sendabl
             throw SpeechServiceError.notAuthorizedToRecognize
         }
 
-        let hasRecordPermission = await AVAudioSession.sharedInstance().hasPermissionToRecord()
+        let hasRecordPermission = await AVAudioApplication.requestRecordPermission()
         guard hasRecordPermission else {
             throw SpeechServiceError.notPermittedToRecord
         }
@@ -97,7 +97,19 @@ final class SpeechServiceImpl: @preconcurrency SpeechService, @unchecked Sendabl
     }
 
     func requestMicrophonePermission() async -> Bool {
-        await AVAudioSession.sharedInstance().hasPermissionToRecord()
+        await AVAudioApplication.requestRecordPermission()
+    }
+
+    func requestSpeechPermission() async -> Bool {
+        await SFSpeechRecognizer.hasAuthorizationToRecognize()
+    }
+
+    func getSpeechPermissionStatus() async -> SpeechPermissionStatus {
+        .init(await SFSpeechRecognizer.getAuthorizationToRecordStatus())
+    }
+
+    func getMicPermissionStatus() async -> MicrophonePermissionStatus {
+        .init(AVAudioApplication.shared.recordPermission)
     }
 
     func reset() {

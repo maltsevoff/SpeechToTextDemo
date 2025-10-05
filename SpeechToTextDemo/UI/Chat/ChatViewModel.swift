@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Factory
+import Speech
+import AVFoundation
 
 @MainActor
 final class ChatViewModel: ObservableObject {
@@ -17,6 +19,9 @@ final class ChatViewModel: ObservableObject {
     @Published var transcript = ""
     @Published var errorMessage: String?
     @Published var chatName = ""
+    @Published var showErrorAlert = false
+    @Published var micPermission: MicrophonePermissionStatus = .undetermined
+    @Published var speechPermission: SpeechPermissionStatus = .undetermined
     var chat: ChatModel?
     var messagaes: [Message] = []
 
@@ -28,6 +33,25 @@ final class ChatViewModel: ObservableObject {
         chat = chatsStorage.getChat(by: chatId)
         messagaes = chatsStorage.getMessages(by: chatId)
         chatName = chat?.name ?? ""
+    }
+
+    func onAppear() {
+        Task {
+            micPermission = await speechService.getMicPermissionStatus()
+            speechPermission = await speechService.getSpeechPermissionStatus()
+        }
+    }
+
+    func requestMicrophonePermission() {
+        Task {
+            micPermission = (await speechService.requestMicrophonePermission()) ? .granted : .denied
+        }
+    }
+    
+    func requestSpeechPermission() {
+        Task {
+            speechPermission = (await speechService.requestSpeechPermission()) ? .authorized : .denied
+        }
     }
 
     func toggleRecord() {
@@ -52,6 +76,24 @@ final class ChatViewModel: ObservableObject {
                 let stream = speechService.transcribe()
                 for try await partialResult in stream {
                     self.transcript = partialResult
+                }
+            } catch let error as SpeechServiceError {
+                switch error {
+                case .nilRecognizer:
+                    self.errorMessage = error.localizedDescription
+                    self.recordState = .normal
+                case .notAuthorizedToRecognize:
+                    self.errorMessage = error.localizedDescription
+                    self.recordState = .normal
+                case .notPermittedToRecord:
+                    self.errorMessage = error.localizedDescription
+                    self.recordState = .normal
+                case .recognizerUnavailable:
+                    self.errorMessage = error.localizedDescription
+                    self.recordState = .normal
+                case .invalidAudioSession:
+                    self.errorMessage = error.localizedDescription
+                    self.recordState = .normal
                 }
             } catch {
                 self.errorMessage = error.localizedDescription

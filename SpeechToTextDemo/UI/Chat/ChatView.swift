@@ -14,13 +14,17 @@ struct ChatView: View {
     var body: some View {
         rootView
             .navigationTitle(viewModel.chatName)
+            .onAppear {
+                viewModel.onAppear()
+            }
     }
 
     private var rootView: some View {
         VStack {
             messagesList
                 .padding(.horizontal, 16)
-            recordButton
+            footer
+                .frame(height: 80)
         }
         .overlay {
             if viewModel.recordState == .recording {
@@ -46,13 +50,68 @@ struct ChatView: View {
         .scrollIndicators(.hidden)
     }
 
+    @ViewBuilder
+    private var footer: some View {
+        if viewModel.micPermission == .granted && viewModel.speechPermission == .authorized {
+            recordButton
+        } else {
+            HStack {
+                micPermissionButton
+                speechPermissionButton
+            }
+        }
+    }
+
+    private var micPermissionButton: some View {
+        Button(action: {
+            viewModel.requestMicrophonePermission()
+        }, label: {
+            switch viewModel.micPermission {
+            case .undetermined:
+                VStack {
+                    Image(systemName: "microphone")
+                    Text("Request microphone permission")
+                }
+            case .denied:
+                VStack {
+                    Image(systemName: "microphone")
+                    Text("Permission denied")
+                }
+                .foregroundStyle(Color.red)
+            case .granted:
+                EmptyView()
+            }
+        })
+    }
+
+    private var speechPermissionButton: some View {
+        Button(action: {
+            viewModel.requestSpeechPermission()
+        }, label: {
+            switch viewModel.speechPermission {
+            case .undetermined:
+                VStack {
+                    Image(systemName: "waveform.circle")
+                    Text("Request recognition permission")
+                }
+            case .denied:
+                VStack {
+                    Image(systemName: "waveform.circle")
+                    Text("Permission denied/restricted")
+                }
+                .foregroundStyle(Color.red)
+            case .authorized:
+                EmptyView()
+            }
+        })
+    }
+
     private var recordButton: some View {
         Button(action: {
             viewModel.toggleRecord()
         }, label: {
             Circle()
                 .fill(viewModel.recordState == .normal ? Color.blue : Color.red)
-                .frame(width: 80, height: 80)
                 .overlay {
                     Image(systemName: "microphone")
                         .resizable()

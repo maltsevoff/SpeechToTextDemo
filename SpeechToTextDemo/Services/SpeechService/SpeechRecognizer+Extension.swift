@@ -16,14 +16,8 @@ extension SFSpeechRecognizer {
             }
         }
     }
-}
 
-extension AVAudioSession {
-    func hasPermissionToRecord() async -> Bool {
-        return await withCheckedContinuation { continuation in
-            requestRecordPermission { authorized in
-                continuation.resume(returning: authorized)
-            }
-        }
+    static func getAuthorizationToRecordStatus() async -> SFSpeechRecognizerAuthorizationStatus {
+        authorizationStatus()
     }
 }
