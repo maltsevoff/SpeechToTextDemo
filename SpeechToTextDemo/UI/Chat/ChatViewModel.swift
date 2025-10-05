@@ -22,6 +22,7 @@ final class ChatViewModel: ObservableObject {
     @Published var showErrorAlert = false
     @Published var micPermission: MicrophonePermissionStatus = .undetermined
     @Published var speechPermission: SpeechPermissionStatus = .undetermined
+    @Published var isSpeechRecognitionAvailable: Bool = false
     var chat: ChatModel?
     var messagaes: [Message] = []
 
@@ -36,6 +37,7 @@ final class ChatViewModel: ObservableObject {
     }
 
     func onAppear() {
+        isSpeechRecognitionAvailable = speechService.isSpeechRecognitionAvailable()
         Task {
             micPermission = await speechService.getMicPermissionStatus()
             speechPermission = await speechService.getSpeechPermissionStatus()

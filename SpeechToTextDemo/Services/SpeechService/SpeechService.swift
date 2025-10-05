@@ -16,6 +16,7 @@ protocol SpeechService: Sendable {
     func requestSpeechPermission() async -> Bool
     func getMicPermissionStatus() async -> MicrophonePermissionStatus
     func getSpeechPermissionStatus() async -> SpeechPermissionStatus
+    func isSpeechRecognitionAvailable() -> Bool
 }
 
 enum MicrophonePermissionStatus {

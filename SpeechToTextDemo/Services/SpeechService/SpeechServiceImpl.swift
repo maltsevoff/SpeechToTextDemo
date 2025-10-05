@@ -96,6 +96,10 @@ final class SpeechServiceImpl: @preconcurrency SpeechService, @unchecked Sendabl
         reset()
     }
 
+    func isSpeechRecognitionAvailable() -> Bool {
+        recognizer?.supportsOnDeviceRecognition ?? false
+    }
+
     func requestMicrophonePermission() async -> Bool {
         await AVAudioApplication.requestRecordPermission()
     }

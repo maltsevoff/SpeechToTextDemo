@@ -52,13 +52,18 @@ struct ChatView: View {
 
     @ViewBuilder
     private var footer: some View {
-        if viewModel.micPermission == .granted && viewModel.speechPermission == .authorized {
-            recordButton
-        } else {
-            HStack {
-                micPermissionButton
-                speechPermissionButton
+        if viewModel.isSpeechRecognitionAvailable {
+            if viewModel.micPermission == .granted && viewModel.speechPermission == .authorized {
+                recordButton
+            } else {
+                HStack {
+                    micPermissionButton
+                    speechPermissionButton
+                }
             }
+        } else {
+            Text("Recognizer is unavailable on you device :(")
+                .foregroundStyle(Color.red)
         }
     }
 
