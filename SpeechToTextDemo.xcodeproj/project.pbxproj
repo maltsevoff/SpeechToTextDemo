@@ -10,14 +10,30 @@
 		A77D63352E8E7A12005A45D9 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = A77D63342E8E7A12005A45D9 /* Factory */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		A77D6A982E9312EE005A45D9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A77D63172E8E63F0005A45D9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A77D631E2E8E63F0005A45D9;
+			remoteInfo = SpeechToTextDemo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		A77D631F2E8E63F0005A45D9 /* SpeechToTextDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeechToTextDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A77D6A942E9312EE005A45D9 /* SpeechToTextDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpeechToTextDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A77D63212E8E63F0005A45D9 /* SpeechToTextDemo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = SpeechToTextDemo;
+			sourceTree = "<group>";
+		};
+		A77D6A952E9312EE005A45D9 /* SpeechToTextDemoTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = SpeechToTextDemoTests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -31,6 +47,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A77D6A912E9312EE005A45D9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -38,6 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				A77D63212E8E63F0005A45D9 /* SpeechToTextDemo */,
+				A77D6A952E9312EE005A45D9 /* SpeechToTextDemoTests */,
 				A77D63202E8E63F0005A45D9 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -46,6 +70,7 @@
 			isa = PBXGroup;
 			children = (
 				A77D631F2E8E63F0005A45D9 /* SpeechToTextDemo.app */,
+				A77D6A942E9312EE005A45D9 /* SpeechToTextDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -76,6 +101,29 @@
 			productReference = A77D631F2E8E63F0005A45D9 /* SpeechToTextDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
+		A77D6A932E9312EE005A45D9 /* SpeechToTextDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A77D6A9A2E9312EE005A45D9 /* Build configuration list for PBXNativeTarget "SpeechToTextDemoTests" */;
+			buildPhases = (
+				A77D6A902E9312EE005A45D9 /* Sources */,
+				A77D6A912E9312EE005A45D9 /* Frameworks */,
+				A77D6A922E9312EE005A45D9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A77D6A992E9312EE005A45D9 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				A77D6A952E9312EE005A45D9 /* SpeechToTextDemoTests */,
+			);
+			name = SpeechToTextDemoTests;
+			packageProductDependencies = (
+			);
+			productName = SpeechToTextDemoTests;
+			productReference = A77D6A942E9312EE005A45D9 /* SpeechToTextDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -88,6 +136,10 @@
 				TargetAttributes = {
 					A77D631E2E8E63F0005A45D9 = {
 						CreatedOnToolsVersion = 16.3;
+					};
+					A77D6A932E9312EE005A45D9 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = A77D631E2E8E63F0005A45D9;
 					};
 				};
 			};
@@ -109,12 +161,20 @@
 			projectRoot = "";
 			targets = (
 				A77D631E2E8E63F0005A45D9 /* SpeechToTextDemo */,
+				A77D6A932E9312EE005A45D9 /* SpeechToTextDemoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A77D631D2E8E63F0005A45D9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A77D6A922E9312EE005A45D9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -131,7 +191,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A77D6A902E9312EE005A45D9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A77D6A992E9312EE005A45D9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A77D631E2E8E63F0005A45D9 /* SpeechToTextDemo */;
+			targetProxy = A77D6A982E9312EE005A45D9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A77D63282E8E63F2005A45D9 /* Debug */ = {
@@ -315,6 +390,42 @@
 			};
 			name = Release;
 		};
+		A77D6A9B2E9312EE005A45D9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AK62F95LBK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.testareas.SpeechToTextDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeechToTextDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeechToTextDemo";
+			};
+			name = Debug;
+		};
+		A77D6A9C2E9312EE005A45D9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = AK62F95LBK;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.testareas.SpeechToTextDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SpeechToTextDemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/SpeechToTextDemo";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -332,6 +443,15 @@
 			buildConfigurations = (
 				A77D632B2E8E63F2005A45D9 /* Debug */,
 				A77D632C2E8E63F2005A45D9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A77D6A9A2E9312EE005A45D9 /* Build configuration list for PBXNativeTarget "SpeechToTextDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A77D6A9B2E9312EE005A45D9 /* Debug */,
+				A77D6A9C2E9312EE005A45D9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
