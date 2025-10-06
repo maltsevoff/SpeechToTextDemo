@@ -37,8 +37,8 @@ final class ChatViewModel: ObservableObject {
     }
 
     func onAppear() {
-        isSpeechRecognitionAvailable = speechService.isSpeechRecognitionAvailable()
         Task {
+            isSpeechRecognitionAvailable = await speechService.isSpeechRecognitionAvailable()
             micPermission = await speechService.getMicPermissionStatus()
             speechPermission = await speechService.getSpeechPermissionStatus()
         }
@@ -57,11 +57,13 @@ final class ChatViewModel: ObservableObject {
     }
 
     func toggleRecord() {
-        switch recordState {
-        case .normal:
-            startRecord()
-        case .recording:
-            stopRecord()
+        Task {
+            switch recordState {
+            case .normal:
+                startRecord()
+            case .recording:
+                await stopRecord()
+            }
         }
     }
 
@@ -75,11 +77,14 @@ final class ChatViewModel: ObservableObject {
             do {
                 try await speechService.authorize()
 
-                let stream = speechService.transcribe()
+                let stream = await speechService.transcribe()
                 for try await partialResult in stream {
+                    print(partialResult)
                     self.transcript = partialResult
                 }
+                await speechService.stopTranscribing()
             } catch let error as SpeechServiceError {
+                await speechService.stopTranscribing()
                 switch error {
                 case .nilRecognizer:
                     self.errorMessage = error.localizedDescription
@@ -98,19 +103,20 @@ final class ChatViewModel: ObservableObject {
                     self.recordState = .normal
                 }
             } catch {
+                await speechService.stopTranscribing()
                 self.errorMessage = error.localizedDescription
                 self.recordState = .normal
             }
         }
     }
 
-    func stopRecord() {
+    private func stopRecord() async {
         guard recordState == .recording else { return }
 
         recordState = .normal
         transcriptionTask?.cancel()
         transcriptionTask = nil
-        speechService.stopTranscribing()
+        await speechService.stopTranscribing()
 
         addNewMessage(text: transcript)
         transcript = ""

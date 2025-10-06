@@ -7,9 +7,9 @@
 
 import AVFoundation
 import Foundation
-import Speech
+@preconcurrency import Speech
 
-final class SpeechServiceImpl: @preconcurrency SpeechService, @unchecked Sendable {
+actor SpeechServiceImpl: SpeechService {
     private var accumulatedText: String = ""
 
     private var audioEngine: AVAudioEngine?
@@ -41,12 +41,7 @@ final class SpeechServiceImpl: @preconcurrency SpeechService, @unchecked Sendabl
         }
     }
 
-    deinit {
-        reset()
-    }
-
-    @MainActor
-    func transcribe() -> AsyncThrowingStream<String, Error> {
+    func transcribe() async -> AsyncThrowingStream<String, Error> {
         AsyncThrowingStream { continuation in
             Task {
                 do {
@@ -58,45 +53,34 @@ final class SpeechServiceImpl: @preconcurrency SpeechService, @unchecked Sendabl
                         throw SpeechServiceError.recognizerUnavailable
                     }
 
-                    self.task = recognizer.recognitionTask(with: request) { [weak self] result, error in
-                        guard let self = self else {
-                            return
-                        }
-
+                    self.task = recognizer.recognitionTask(with: request) { result, error in
                         if let error = error {
                             continuation.finish(throwing: error)
-                            self.reset()
                             return
                         }
 
                         if let result = result {
                             let newText = result.bestTranscription.formattedString
 
-                            continuation.yield(self.accumulatedText + newText)
-
-                            if result.speechRecognitionMetadata != nil {
-                                self.accumulatedText += newText + " "
-                            }
+                            continuation.yield(newText)
 
                             if result.isFinal {
                                 continuation.finish()
-                                self.reset()
                             }
                         }
                     }
                 } catch {
                     continuation.finish(throwing: error)
-                    self.reset()
                 }
             }
         }
     }
 
-    func stopTranscribing() {
+    func stopTranscribing() async {
         reset()
     }
 
-    func isSpeechRecognitionAvailable() -> Bool {
+    func isSpeechRecognitionAvailable() async -> Bool {
         recognizer?.supportsOnDeviceRecognition ?? false
     }
 

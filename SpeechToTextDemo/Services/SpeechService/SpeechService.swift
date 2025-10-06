@@ -10,13 +10,13 @@ import Speech
 
 protocol SpeechService: Sendable {
     func authorize() async throws
-    func transcribe() -> AsyncThrowingStream<String, Error>
-    func stopTranscribing()
+    func transcribe() async -> AsyncThrowingStream<String, Error>
+    func stopTranscribing() async
     func requestMicrophonePermission() async -> Bool
     func requestSpeechPermission() async -> Bool
     func getMicPermissionStatus() async -> MicrophonePermissionStatus
     func getSpeechPermissionStatus() async -> SpeechPermissionStatus
-    func isSpeechRecognitionAvailable() -> Bool
+    func isSpeechRecognitionAvailable() async -> Bool
 }
 
 enum MicrophonePermissionStatus {
