@@ -83,25 +83,6 @@ final class ChatViewModel: ObservableObject {
                     self.transcript = partialResult
                 }
                 await speechService.stopTranscribing()
-            } catch let error as SpeechServiceError {
-                await speechService.stopTranscribing()
-                switch error {
-                case .nilRecognizer:
-                    self.errorMessage = error.localizedDescription
-                    self.recordState = .normal
-                case .notAuthorizedToRecognize:
-                    self.errorMessage = error.localizedDescription
-                    self.recordState = .normal
-                case .notPermittedToRecord:
-                    self.errorMessage = error.localizedDescription
-                    self.recordState = .normal
-                case .recognizerUnavailable:
-                    self.errorMessage = error.localizedDescription
-                    self.recordState = .normal
-                case .invalidAudioSession:
-                    self.errorMessage = error.localizedDescription
-                    self.recordState = .normal
-                }
             } catch {
                 await speechService.stopTranscribing()
                 self.errorMessage = error.localizedDescription
